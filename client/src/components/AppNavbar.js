@@ -31,11 +31,11 @@ const AppNavbar = (props) => {
         {user ? `Welcome ${user.name}` : ""}
       </DropdownToggle>
       <DropdownMenu right>
-        <DropdownItem onClick={props.logout}>Logout</DropdownItem>
-        <DropdownItem divider />
         <DropdownItem tag={Link} to="/add-blog">
           Add Blog
         </DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem onClick={props.logout}>Logout</DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>
   );

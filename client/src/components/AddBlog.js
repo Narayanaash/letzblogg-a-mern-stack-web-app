@@ -21,7 +21,7 @@ class AddBlog extends Component {
   state = {
     title: "",
     shortDesc: "",
-    file: "",
+    file: null,
     description: "<p>write world's best blog now...</p>",
     uploading: false,
     uploaded: false,
@@ -39,35 +39,45 @@ class AddBlog extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  fileInputHandler = async (e) => {
+    await this.setState({ file: e.target.files[0] });
+    console.log(this.state.file);
+  };
+
   ckeditorInputHandler = (event, editor) => {
     const data = editor.getData();
-    console.log(data);
     this.setState({ description: data });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, shortDesc, description } = this.state;
+    const { title, shortDesc, file, description } = this.state;
 
-    if (!title || !shortDesc || !description) {
+    if (!title || !shortDesc || !file || !description) {
       this.setState({ error: true });
     } else {
       this.setState({ error: false, uploading: true });
 
-      const newBlog = {
-        title: this.state.title,
-        shortDesc: this.state.shortDesc,
-        file: this.state.file,
-        description: this.state.description,
-      };
+      // const newBlog = {
+      //   title: this.state.title,
+      //   shortDesc: this.state.shortDesc,
+      //   file: this.state.file,
+      //   description: this.state.description,
+      // };
+
+      const data = new FormData();
+      data.append("title", this.state.title);
+      data.append("shortDesc", this.state.shortDesc);
+      data.append("file", this.state.file);
+      data.append("description", this.state.description);
 
       //Add item via addBlog action
-      this.props.addBlog(newBlog);
+      this.props.addBlog(data);
       this.setState({
         title: "",
         shortDesc: "",
-        file: "",
+        file: null,
         description: "<p>write world's best blog now...</p>",
         uploaded: false,
       });
@@ -134,7 +144,8 @@ class AddBlog extends Component {
               type="file"
               name="file"
               id="thumbnail"
-              onChange={this.inputHandler}
+              onChange={this.fileInputHandler}
+              accept=".jpg"
             />
           </FormGroup>
           <FormGroup>
