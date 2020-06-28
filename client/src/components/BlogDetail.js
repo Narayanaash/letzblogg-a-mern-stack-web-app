@@ -19,7 +19,7 @@ class BlogDetail extends Component {
 
   render() {
     const { blogs, loading } = this.props.blog;
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     return (
       <Container>
         {loading ? (
@@ -27,15 +27,15 @@ class BlogDetail extends Component {
         ) : (
           <Row>
             <Col sm="4">
-              {blogs.map(({ _id, title }) => (
+              {blogs.map(({ _id, title, file, userId }) => (
                 <div key={_id} className="sm-blog-list mb-3">
                   <div className="image">
-                    <img src="/blog.jpg" alt="" />
+                    <img src={file ? `/uploads/${file}` : "/blog.jpg"} alt="" />
                   </div>
                   <div className="content">
                     <b>{title}</b>
                     <br />
-                    {isAuthenticated ? (
+                    {isAuthenticated && userId === user._id ? (
                       <i
                         onClick={() => this.deleteBlog(_id)}
                         className="far fa-trash-alt"

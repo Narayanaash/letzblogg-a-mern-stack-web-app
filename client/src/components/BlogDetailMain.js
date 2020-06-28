@@ -36,15 +36,20 @@ class BlogDetailMain extends Component {
 
   render() {
     const { blogs } = this.props.blog;
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     return (
       <Col md="8" className="mb-1">
-        {blogs.map(({ _id, title, description }) =>
+        {blogs.map(({ _id, title, file, description, userId }) =>
           _id !== this.props.id ? (
             ""
           ) : (
             <Card className="mb-4">
-              <CardImg top width="100%" src="/blog.jpg" alt="" />
+              <CardImg
+                top
+                width="100%"
+                src={file ? `/uploads/${file}` : "/blog.jpg"}
+                alt=""
+              />
               <CardBody>
                 <CardTitle>
                   <h5>{title}</h5>
@@ -85,14 +90,14 @@ class BlogDetailMain extends Component {
                   className="blog-detail-text"
                   dangerouslySetInnerHTML={this.createMarkup(description)}
                 ></CardText>
-                {isAuthenticated ? (
+                {isAuthenticated && userId === user._id ? (
                   <Button tag={Link} to={"/update-blog/" + _id} color="primary">
                     <i className="fa fa-edit"></i> Edit
                   </Button>
                 ) : (
                   ""
                 )}
-                {isAuthenticated ? (
+                {isAuthenticated && userId === user._id ? (
                   <Button
                     className="trash"
                     color="danger"

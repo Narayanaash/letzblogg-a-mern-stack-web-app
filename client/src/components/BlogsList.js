@@ -26,21 +26,21 @@ class BlogsList extends Component {
 
   render() {
     const { blogs, loading } = this.props.blog;
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     return (
       <Container>
         {loading ? (
           <h5 className="loading">Loading...</h5>
         ) : (
           <Row>
-            {blogs.map(({ _id, title, shortDesc }) => (
+            {blogs.map(({ _id, title, shortDesc, file, userId }) => (
               <Col key={_id} sm="6" md="4" className="mb-1">
                 <Card className="mb-4">
                   <CardImg
                     className="home-list-img"
                     top
                     width="100%"
-                    src="/blog.jpg"
+                    src={file ? `/uploads/${file}` : "/blog.jpg"}
                     alt=""
                   />
                   <CardBody>
@@ -55,7 +55,7 @@ class BlogsList extends Component {
                     >
                       Read More
                     </Button>
-                    {isAuthenticated ? (
+                    {isAuthenticated && userId === user._id ? (
                       <Button
                         className="trash"
                         color="danger"
