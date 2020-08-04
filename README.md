@@ -5,9 +5,9 @@ Demo: letzblogg.herokuapp.com/ (Used static image)
 
 updated (Branch V2): https://letzblogg-v2.herokuapp.com/ (Image upload not working because heroku doesn't allow to store dynamic files)
 
-<img src="./client/public/1.jpg" >
-<img src="./client/public/2.jpg" >
-<img src="./client/public/3.jpg" >
-<img src="./client/public/4.jpg" >
-<img src="./client/public/5.jpg" >
+<img src="./client/public/1.png" >
+<img src="./client/public/2.png" >
+<img src="./client/public/3.png" >
+<img src="./client/public/4.png" >
+<img src="./client/public/5.png" >
 
